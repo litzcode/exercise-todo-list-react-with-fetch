@@ -1,13 +1,57 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
-/* 
+.container {
+    width: 75%;
+    margin: 30px auto;
+    padding: 30px;
+    border: solid 1px lightgray;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+h1 {
+    text-align: center;
+}
 
-*/
+.list-container {
+    border: solid 1px lightgray;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+input {
+    border: none;
+	border-bottom: solid 1px lightgray;
+	width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+
+input:focus {
+    outline: none;
+    transition: 0.1s;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    border-bottom: solid 1px lightgray;
+    padding: 10px 20px;
+}
+
+span {
+    opacity: 0;
+    transition: 0.2s linear;
+    float: right;
+}
+
+li:hover span {
+	opacity: 1;
+}
+
+p {
+    font-size: 10px;
+    color: gray;
+    margin: 5px;
+}
