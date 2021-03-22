@@ -6,6 +6,7 @@ export default function ToDoList() {
 
 	let url = "https://assets.breatheco.de/apis/fake/todos/user/litzy";
 
+	//>> POST method
 	const createUser = () =>
 		fetch(url, {
 			method: "POST",
@@ -23,6 +24,7 @@ export default function ToDoList() {
 			.then(() => getList())
 			.catch(error => console.error("Error: ", error));
 
+	//>> GET method
 	const getList = () =>
 		fetch(url, {
 			method: "GET",
@@ -46,6 +48,7 @@ export default function ToDoList() {
 			})
 			.catch(error => console.error("GET request error: ", error));
 
+	//>> PUT method
 	const updateList = () =>
 		fetch(url, {
 			method: "PUT",
@@ -63,10 +66,14 @@ export default function ToDoList() {
 			})
 			.then(response => {
 				setInput("");
-				console.log(response);
+				console.log(
+					"(Result counter includes hidden default 'sample task')",
+					response
+				);
 			})
 			.catch(error => console.error("Error: ", error));
 
+	//>> DELETE method
 	const deleteList = () => {
 		fetch(url, {
 			method: "DELETE",
@@ -79,18 +86,24 @@ export default function ToDoList() {
 				resp.status >= 200 && resp.status < 300
 					? console.log("DELETE successful, status: ", resp.status)
 					: console.error("DELETE failed, status: ", resp.status);
-				console.log("DELETE response: ", resp.text());
+				return resp.json();
 			})
+			.then(response => console.log("DELETE response: ", response))
 			.then(() => setList([]))
 			.then(() => createUser())
 			.catch(error => console.error("Error: ", error));
 	};
 
+	//>> EVENTS functions where fetch methods are called
 	const addTask = event => {
-		if (event.keyCode == 13 && input !== "") {
-			setList([...list, { label: input, done: false }]);
+		if (event.keyCode == 13 && input !== "" && input !== "sample task") {
+			//setList([...list, { label: input, done: false }]); //Does not work, it does not update in "real time" the API
+			let newTask = { label: input, done: false };
+			list.splice(list.length, 0, newTask);
+			setList([...list]);
 			updateList();
-		}
+		} else if (input == "sample task")
+			alert("'sample task' is not a valid input");
 	};
 
 	const deleteTask = index => {
